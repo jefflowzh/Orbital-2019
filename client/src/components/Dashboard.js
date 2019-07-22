@@ -5,8 +5,14 @@ import { logoutUser } from "../actions/authActions";
 import ListingContainer from "./layout/ListingContainer";
 import Carousel from "nuka-carousel";
 import SearchBar from "./layout/SearchBar";
+import { setCurrentListings } from "../actions/listingActions";
 
 class Dashboard extends Component {
+  componentDidMount() {
+    this.props.setCurrentListings();
+    console.log("mounted");
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -63,5 +69,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, setCurrentListings }
 )(Dashboard);

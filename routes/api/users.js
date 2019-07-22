@@ -107,4 +107,8 @@ router.post("/listings/new", (req, res) => {
   ).then(user => res.send(user));
 });
 
+router.get("/dashboard", (req, res) => {
+  User.find({ isRegisteredCaregiver: true }).then(result => res.json(result));
+});
+
 module.exports = router;
