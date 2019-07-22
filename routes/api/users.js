@@ -91,7 +91,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.post("/testing/testing", (req, res) => {
+router.post("/listings/new", (req, res) => {
   User.findOneAndUpdate(
     { email: req.body.email },
     {

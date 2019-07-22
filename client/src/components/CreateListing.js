@@ -48,7 +48,7 @@ class CreateListing extends Component {
       email: this.state.email
     };
     axios
-      .post("/api/users/testing/testing", userData)
+      .post("/api/users/listings/new", userData)
       .then(res => console.log(res));
   };
 
