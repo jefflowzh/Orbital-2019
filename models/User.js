@@ -14,6 +14,34 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  isRegisteredCaregiver: {
+    type: Boolean,
+    default: false
+  },
+  isMedicalEscort: {
+    type: Boolean
+  },
+  isBefriender: {
+    type: Boolean
+  },
+  isNurse: {
+    type: Boolean
+  },
+  race: {
+    type: String
+  },
+  religion: {
+    type: String
+  },
+  languages: {
+    type: String
+  },
+  description: {
+    type: String
+  },
+  certificate: {
+    type: String
   }
 });
 

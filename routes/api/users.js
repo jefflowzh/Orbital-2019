@@ -91,4 +91,20 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.post("/testing/testing", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.body.email },
+    {
+      isRegisteredCaregiver: true,
+      isMedicalEscort: req.body.isMedicalEscort,
+      isBefriender: req.body.isBefriender,
+      isNurse: req.body.isNurse,
+      race: req.body.race,
+      religion: req.body.religion,
+      languages: req.body.languages,
+      description: req.body.description
+    }
+  ).then(user => res.send(user));
+});
+
 module.exports = router;
