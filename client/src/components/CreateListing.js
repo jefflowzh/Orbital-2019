@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { updateListings } from "../actions/listingActions";
 
 class CreateListing extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class CreateListing extends Component {
     };
     axios
       .post("/api/users/listings/new", userData)
-      .then(res => console.log(res));
+      .then(user => updateListings(user));
   };
 
   render() {
@@ -214,4 +215,5 @@ class CreateListing extends Component {
   }
 }
 
-export default connect()(CreateListing);
+export default CreateListing;
+//export default connect()(CreateListing);

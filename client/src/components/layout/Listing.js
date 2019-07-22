@@ -2,11 +2,7 @@ import React, { Component } from "react";
 
 class Listing extends Component {
   render() {
-    return (
-      <div>
-        <h1>{this.props.name}</h1>
-      </div>
-    );
+    return <div>{this.props.name}</div>;
   }
 }
 

@@ -1,7 +1,8 @@
 import { SET_CURRENT_LISTINGS, UPDATE_LISTINGS } from "../actions/types";
 
 const initialState = {
-  listings: []
+  listings: [],
+  searchResults: []
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         listings: action.payload
+      };
+    case UPDATE_LISTINGS:
+      return [...state, action.payload];
+    case SEARCH_LISTINGS:
+      return {
+        ...state,
+        searchResults: action.payload
       };
     default:
       return state;

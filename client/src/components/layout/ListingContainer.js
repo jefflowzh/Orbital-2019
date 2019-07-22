@@ -8,9 +8,15 @@ class ListingContainer extends Component {
     return (
       <div className="container">
         Latest listings
-        {this.props.listings.listings.map(listing => (
-          <Listing name={listing.name} />
-        ))}
+        <div class="row">
+          {this.props.listings.listings.reverse().map(listing => (
+            <div class="col s4">
+              <div class="center">
+                <Listing name={listing.name} />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

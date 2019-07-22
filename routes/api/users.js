@@ -104,11 +104,16 @@ router.post("/listings/new", (req, res) => {
       languages: req.body.languages,
       description: req.body.description
     }
-  ).then(user => res.send(user));
+  ).then(user => res.json(user));
 });
 
 router.get("/dashboard", (req, res) => {
   User.find({ isRegisteredCaregiver: true }).then(result => res.json(result));
+});
+
+router.get("/dashboard/search", (req, res) => {
+  // req.body.query
+  User.find({ $text: { $search: "Bryanss" } }).then(result => res.json(result));
 });
 
 module.exports = router;

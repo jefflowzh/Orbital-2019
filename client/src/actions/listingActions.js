@@ -9,3 +9,20 @@ export const setCurrentListings = () => dispatch => {
     })
   );
 };
+
+export const updateListings = user => dispatch => {
+  //console.log(user.data);
+  dispatch({
+    type: UPDATE_LISTINGS,
+    payload: user.data
+  });
+};
+
+export const searchListings = query => dispatch => {
+  axios.get("/api/users/dashboard/search", query).then(res =>
+    dispatch({
+      type: SEARCH_LISTINGS,
+      payload: res.data
+    })
+  );
+};
