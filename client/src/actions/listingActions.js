@@ -3,7 +3,7 @@ import {
   SET_CURRENT_LISTINGS,
   UPDATE_LISTINGS,
   SEARCH_LISTINGS
-} from "../actions/types";
+} from "./types";
 
 export const setCurrentListings = () => dispatch => {
   axios.get("/api/users/dashboard").then(res =>

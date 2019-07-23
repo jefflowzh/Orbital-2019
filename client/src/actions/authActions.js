@@ -1,7 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, SET_CAREGIVER } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -38,6 +38,14 @@ export const loginUser = userData => dispatch => {
         payload: err.response.data
       })
     );
+  axios.post("/api/users/caregiverCheck", userData).then(res =>
+    res.data
+      ? dispatch({
+          type: SET_CAREGIVER,
+          payload: true
+        })
+      : console.log()
+  );
 };
 
 // Set logged in user
@@ -46,6 +54,13 @@ export const setCurrentUser = decoded => {
     type: SET_CURRENT_USER,
     payload: decoded
   };
+};
+
+export const setCaregiver = () => dispatch => {
+  dispatch({
+    type: SET_CAREGIVER,
+    payload: true
+  });
 };
 
 // Log user out

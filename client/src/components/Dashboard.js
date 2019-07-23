@@ -10,7 +10,6 @@ import { setCurrentListings } from "../actions/listingActions";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.setCurrentListings();
-    console.log("mounted");
   }
 
   onLogoutClick = e => {

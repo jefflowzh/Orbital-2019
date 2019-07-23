@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { updateListings } from "../actions/listingActions";
+import { withRouter } from "react-router-dom";
+import { setCaregiver } from "../actions/authActions";
 
 class CreateListing extends Component {
   constructor(props) {
@@ -16,6 +18,14 @@ class CreateListing extends Component {
       languages: "",
       description: ""
     };
+  }
+
+  componentDidMount() {
+    // If already a registered caregiver and user navigates to CreateListing page, should redirect them to their profile
+    if (this.props.auth.isCaregiver) {
+      alert("You have already registered as a caregiver!");
+      this.props.history.push("/profile");
+    }
   }
 
   handleInputChange = event => {
@@ -51,6 +61,9 @@ class CreateListing extends Component {
     axios
       .post("/api/users/listings/new", userData)
       .then(user => updateListings(user));
+    this.props.setCaregiver();
+    alert("Registration successful!");
+    this.props.history.push("/profile");
   };
 
   render() {
@@ -165,24 +178,19 @@ class CreateListing extends Component {
                 />
                 <label htmlFor="languages">Languages Spoken</label>
               </div>
-
-              <div>
-                <div className="input-field col s12">
-                  <h5>Description</h5>
-                  <textarea
-                    type="text"
-                    id="description"
-                    value={this.state.description}
-                    onChange={this.handleTextAreaChange}
-                    placeholder="Tell us more about yourself!"
-                  />
-                </div>
+              <div className="input-field col s12">
+                <h5>Description</h5>
+                <textarea
+                  type="text"
+                  id="description"
+                  value={this.state.description}
+                  onChange={this.handleTextAreaChange}
+                  placeholder="Tell us more about yourself!"
+                />
               </div>
-              <div>
-                <div className="input-field col s12">
-                  <h5>Please upload your relevant caregiving certificate</h5>
-                  <input type="file" />
-                </div>
+              <div className="input-field col s12">
+                <h5>Please upload your relevant caregiving certificate</h5>
+                <input type="file" />
               </div>
               <div className="input-field col s12">
                 <input
@@ -215,5 +223,9 @@ class CreateListing extends Component {
   }
 }
 
-export default CreateListing;
-//export default connect()(CreateListing);
+const mapStateToProps = state => ({ auth: state.auth });
+
+export default connect(
+  mapStateToProps,
+  { setCaregiver }
+)(withRouter(CreateListing));

@@ -91,6 +91,12 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.post("/caregiverCheck", (req, res) => {
+  User.findOne({ email: req.body.email }).then(r =>
+    res.json(r.isRegisteredCaregiver)
+  );
+});
+
 router.post("/listings/new", (req, res) => {
   User.findOneAndUpdate(
     { email: req.body.email },
