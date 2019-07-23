@@ -1,4 +1,8 @@
-import { SET_CURRENT_LISTINGS, UPDATE_LISTINGS } from "../actions/types";
+import {
+  SET_CURRENT_LISTINGS,
+  UPDATE_LISTINGS,
+  SEARCH_LISTINGS
+} from "../actions/types";
 
 const initialState = {
   listings: [],

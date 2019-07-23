@@ -111,9 +111,10 @@ router.get("/dashboard", (req, res) => {
   User.find({ isRegisteredCaregiver: true }).then(result => res.json(result));
 });
 
-router.get("/dashboard/search", (req, res) => {
-  // req.body.query
-  User.find({ $text: { $search: "Bryanss" } }).then(result => res.json(result));
+router.post("/dashboard/search", (req, res) => {
+  User.find({ $text: { $search: req.body.query } }).then(result =>
+    res.json(result)
+  );
 });
 
 module.exports = router;

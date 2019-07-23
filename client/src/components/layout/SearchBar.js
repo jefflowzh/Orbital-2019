@@ -17,8 +17,11 @@ class SearchBar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    searchListings(this.state.query);
-    this.props.history.push("/about");
+    const userQuery = {
+      query: this.state.query
+    };
+    this.props.searchListings(userQuery);
+    this.props.history.push("/searchResults");
   };
 
   render() {
@@ -51,4 +54,10 @@ class SearchBar extends Component {
   }
 }
 
-export default withRouter(SearchBar);
+//export default (SearchBar);
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { searchListings }
+)(withRouter(SearchBar));
