@@ -7,12 +7,17 @@ class ListingContainer extends Component {
   render() {
     return (
       <div className="container">
-        Latest listings
+        <h3>
+          <b>Latest listings</b>
+        </h3>
         <div class="row">
           {this.props.listings.listings.reverse().map(listing => (
             <div class="col s4">
               <div class="center">
-                <Listing name={listing.name} />
+                <Listing
+                  name={listing.name}
+                  description={listing.description}
+                />
               </div>
             </div>
           ))}

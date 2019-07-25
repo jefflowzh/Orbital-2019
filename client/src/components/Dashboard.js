@@ -20,12 +20,14 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <div className="container">
-        <SearchBar />
-        <Carousel>
-          <img src="http://albionalumni.org/wp-content/uploads/2015/01/welcome_to_our_new_website.jpg" />
-          <img src="http://www.wraptite.com/images/news-announcements-banner.jpg" />
-        </Carousel>
+      <div>
+        <div className="container">
+          <SearchBar />
+          <Carousel>
+            <img src="http://albionalumni.org/wp-content/uploads/2015/01/welcome_to_our_new_website.jpg" />
+            <img src="http://www.wraptite.com/images/news-announcements-banner.jpg" />
+          </Carousel>
+        </div>
         <ListingContainer />
         <div style={{ height: "75vh" }} className="container valign-wrapper">
           <div className="row">
