@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -10,6 +12,63 @@ const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
+
+// Multer
+const multerConf = {
+  storage: multer.diskStorage({
+    destination: function(req, file, next) {
+      next(null, "./images");
+    },
+    filename: function(req, file, next) {
+      console.log("FILENAMEEEEEEEEEEEEEE" + file.fieldname);
+      next(
+        null,
+        file.fieldname + "-" + Date.now() + "." + file.mimetype.split("/")[1]
+      );
+    }
+  }),
+  fileFilter: function(req, file, next) {
+    if (!file) {
+      next();
+    }
+    const image = file.mimetype.startsWith("image/");
+    if (image) {
+      next(null, true);
+    } else {
+      next({ message: "File type not supported" }, false);
+    }
+  }
+};
+
+let upload = multer(multerConf).single("photo");
+// let storage = new GridFsStorage({
+//   url:
+//     "mongodb+srv://jefflowzh:jeffersonlow@orbital2019-delkr.mongodb.net/test?retryWrites=true&w=majority",
+//   file: (req, file) => {
+//     return {
+//       bucketName: "test",
+//       filename: file.originalname
+//     };
+//   }
+// });
+// storage.on("connection", db => {
+//   upload;
+// });
+// module.exports.uploadFile = (req, res) => {
+//   upload(req, res, err => {
+//     if (err) {
+//       return res.render("index", {
+//         title: "Uploaded Error",
+//         message: "File could not be uploaded",
+//         error: err
+//       });
+//     }
+//     res.render("index", {
+//       title: "Uploaded",
+//       message: `File ${req.file.filename} has been uploaded!`
+//     });
+//   });
+// };
 
 //register endpoint
 router.post("/register", (req, res) => {
@@ -97,7 +156,7 @@ router.post("/caregiverCheck", (req, res) => {
   );
 });
 
-router.post("/listings/new", (req, res) => {
+router.post("/listings/new", upload, (req, res) => {
   User.findOneAndUpdate(
     { email: req.body.email },
     {
@@ -108,9 +167,14 @@ router.post("/listings/new", (req, res) => {
       race: req.body.race,
       religion: req.body.religion,
       languages: req.body.languages,
-      description: req.body.description
+      description: req.body.description,
+      photo: req.file.filename
     }
   ).then(user => res.json(user));
+});
+
+router.post("/imageTest", upload, (req, res) => {
+  res.send({ success: true });
 });
 
 router.get("/dashboard", (req, res) => {

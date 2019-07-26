@@ -16,7 +16,9 @@ class CreateListing extends Component {
       race: "",
       religion: "",
       languages: "",
-      description: ""
+      description: "",
+      photo: "",
+      isUploaded: false
     };
   }
 
@@ -56,7 +58,8 @@ class CreateListing extends Component {
       isMedicalEscort: this.state.isMedicalEscort,
       isBefriender: this.state.isBefriender,
       isNurse: this.state.isNurse,
-      email: this.state.email
+      email: this.state.email,
+      photo: this.state.photo
     };
     axios
       .post("/api/users/listings/new", userData)
@@ -64,6 +67,10 @@ class CreateListing extends Component {
     this.props.setCaregiver();
     alert("Registration successful!");
     this.props.history.push("/profile");
+  };
+
+  previewFile = () => {
+    this.setState({ isUploaded: true });
   };
 
   render() {
@@ -189,8 +196,14 @@ class CreateListing extends Component {
                 />
               </div>
               <div className="input-field col s12">
-                <h5>Please upload your relevant caregiving certificate</h5>
-                <input type="file" />
+                <h5>Please upload an image of yourself</h5>
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  value={this.state.photo}
+                  //onChange={previewFile}
+                />
               </div>
               <div className="input-field col s12">
                 <input

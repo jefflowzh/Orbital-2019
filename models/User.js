@@ -40,8 +40,10 @@ const UserSchema = new Schema({
   description: {
     type: String
   },
-  certificate: {
+  photo: {
     type: String
+    // data: Buffer,
+    // contentType: String
   }
 });
 
