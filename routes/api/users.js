@@ -157,9 +157,11 @@ router.post("/caregiverCheck", (req, res) => {
 });
 
 router.post("/listings/new", upload, (req, res) => {
+  console.log("REACHED BACKEND!!!");
   User.findOneAndUpdate(
     { email: req.body.email },
     {
+      photo: req.file.filename,
       isRegisteredCaregiver: true,
       isMedicalEscort: req.body.isMedicalEscort,
       isBefriender: req.body.isBefriender,
@@ -167,8 +169,7 @@ router.post("/listings/new", upload, (req, res) => {
       race: req.body.race,
       religion: req.body.religion,
       languages: req.body.languages,
-      description: req.body.description,
-      photo: req.file.filename
+      description: req.body.description
     }
   ).then(user => res.json(user));
 });

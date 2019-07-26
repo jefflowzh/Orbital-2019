@@ -17,8 +17,7 @@ class CreateListing extends Component {
       religion: "",
       languages: "",
       description: "",
-      photo: "",
-      isUploaded: false
+      photo: null
     };
   }
 
@@ -38,6 +37,10 @@ class CreateListing extends Component {
     this.setState({
       [id]: value
     });
+  };
+
+  handleFileChange = event => {
+    this.setState({ photo: event.target.files[0] });
   };
 
   handleTextAreaChange = event => {
@@ -201,8 +204,8 @@ class CreateListing extends Component {
                   type="file"
                   id="photo"
                   name="photo"
-                  value={this.state.photo}
-                  //onChange={previewFile}
+                  //value={this.state.photo}
+                  onChange={this.handleFileChange}
                 />
               </div>
               <div className="input-field col s12">
