@@ -157,7 +157,6 @@ router.post("/caregiverCheck", (req, res) => {
 });
 
 router.post("/listings/new", upload, (req, res) => {
-  console.log("REACHED BACKEND!!!");
   User.findOneAndUpdate(
     { email: req.body.email },
     {

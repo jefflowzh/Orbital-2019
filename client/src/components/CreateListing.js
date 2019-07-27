@@ -17,7 +17,7 @@ class CreateListing extends Component {
       religion: "",
       languages: "",
       description: "",
-      photo: null
+      photo: "hello"
     };
   }
 
@@ -40,7 +40,9 @@ class CreateListing extends Component {
   };
 
   handleFileChange = event => {
+    console.log(event.target.files[0]);
     this.setState({ photo: event.target.files[0] });
+    console.log(this.state.photo);
   };
 
   handleTextAreaChange = event => {
@@ -53,17 +55,27 @@ class CreateListing extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const userData = {
-      race: this.state.race,
-      religion: this.state.religion,
-      languages: this.state.languages,
-      description: this.state.description,
-      isMedicalEscort: this.state.isMedicalEscort,
-      isBefriender: this.state.isBefriender,
-      isNurse: this.state.isNurse,
-      email: this.state.email,
-      photo: this.state.photo
-    };
+    let userData = new FormData();
+    userData.append("race", this.state.race);
+    userData.append("religion", this.state.religion);
+    userData.append("languages", this.state.languages);
+    userData.append("description", this.state.description);
+    userData.append("isMedicalEscort", this.state.isMedicalEscort);
+    userData.append("isBefriender", this.state.isBefriender);
+    userData.append("isNurse", this.state.isNurse);
+    userData.append("email", this.state.email);
+    userData.append("photo", this.state.photo);
+    // const userData = {
+    //   race: this.state.race,
+    //   religion: this.state.religion,
+    //   languages: this.state.languages,
+    //   description: this.state.description,
+    //   isMedicalEscort: this.state.isMedicalEscort,
+    //   isBefriender: this.state.isBefriender,
+    //   isNurse: this.state.isNurse,
+    //   email: this.state.email,
+    //   photo: this.state.photo
+    // };
     axios
       .post("/api/users/listings/new", userData)
       .then(user => updateListings(user));
