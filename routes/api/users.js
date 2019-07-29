@@ -4,8 +4,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
 
+// router.get("/image", (req, res) => {
+//   console.log("CALLED IMAGESSS");
+//   const img = "./images/photo-1564217904112.jpeg";
+//   res.send({ imageName: img });
+// });
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -20,7 +24,6 @@ const multerConf = {
       next(null, "./images");
     },
     filename: function(req, file, next) {
-      console.log("FILENAMEEEEEEEEEEEEEE" + file.fieldname);
       next(
         null,
         file.fieldname + "-" + Date.now() + "." + file.mimetype.split("/")[1]
@@ -41,34 +44,6 @@ const multerConf = {
 };
 
 let upload = multer(multerConf).single("photo");
-// let storage = new GridFsStorage({
-//   url:
-//     "mongodb+srv://jefflowzh:jeffersonlow@orbital2019-delkr.mongodb.net/test?retryWrites=true&w=majority",
-//   file: (req, file) => {
-//     return {
-//       bucketName: "test",
-//       filename: file.originalname
-//     };
-//   }
-// });
-// storage.on("connection", db => {
-//   upload;
-// });
-// module.exports.uploadFile = (req, res) => {
-//   upload(req, res, err => {
-//     if (err) {
-//       return res.render("index", {
-//         title: "Uploaded Error",
-//         message: "File could not be uploaded",
-//         error: err
-//       });
-//     }
-//     res.render("index", {
-//       title: "Uploaded",
-//       message: `File ${req.file.filename} has been uploaded!`
-//     });
-//   });
-// };
 
 //register endpoint
 router.post("/register", (req, res) => {
@@ -171,10 +146,6 @@ router.post("/listings/new", upload, (req, res) => {
       description: req.body.description
     }
   ).then(user => res.json(user));
-});
-
-router.post("/imageTest", upload, (req, res) => {
-  res.send({ success: true });
 });
 
 router.get("/dashboard", (req, res) => {

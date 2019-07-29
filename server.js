@@ -7,6 +7,8 @@ const users = require("./routes/api/users");
 
 const app = express();
 
+app.use(express.static("images"));
+
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({

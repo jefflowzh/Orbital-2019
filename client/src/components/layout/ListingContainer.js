@@ -16,7 +16,15 @@ class ListingContainer extends Component {
               <div class="center">
                 <Listing
                   name={listing.name}
+                  email={listing.email}
                   description={listing.description}
+                  isBefriender={listing.isBefriender}
+                  isMedicalEscort={listing.isMedicalEscort}
+                  isNurse={listing.isNurse}
+                  languages={listing.languages}
+                  race={listing.race}
+                  religion={listing.religion}
+                  photo={listing.photo}
                 />
               </div>
             </div>

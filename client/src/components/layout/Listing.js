@@ -1,20 +1,37 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Listing extends Component {
   render() {
     return (
       <div class="card medium">
         <div class="card-image">
-          <img src="http://www.sclance.com/pngs/image-placeholder-png/image_placeholder_png_698412.png" />
+          <img src={this.props.photo} />
+        </div>
+        <div class="card-content" style={{ padding: "0.1px" }}>
           <span class="card-title black-text">
             <b>{this.props.name}</b>
           </span>
-        </div>
-        <div class="card-content">
-          <p>{this.props.description}</p>
+          <p>Medical Escort: {this.props.isMedicalEscort ? "Yes" : "No"}</p>
+          <p>Befriender: {this.props.isBrefriender ? "Yes" : "No"}</p>
+          <p>Nurse: {this.props.isNurse ? "Yes" : "No"}</p>
         </div>
         <div class="card-action">
-          <a href="#">View more</a>
+          <Link
+            to="#"
+            name={this.props.name}
+            email={this.props.email}
+            description={this.props.description}
+            isBefriender={this.props.isBefriender}
+            isMedicalEscort={this.props.isMedicalEscort}
+            isNurse={this.props.isNurse}
+            languages={this.props.languages}
+            race={this.props.race}
+            religion={this.props.religion}
+            photo={this.props.photo}
+          >
+            View more
+          </Link>
         </div>
       </div>
     );
