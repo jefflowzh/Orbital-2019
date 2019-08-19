@@ -158,4 +158,9 @@ router.post("/dashboard/search", (req, res) => {
   );
 });
 
+router.post("/currentUser", (req, res) => {
+  console.log(req.body.userId);
+  User.findOne({ id: req.body.userId }).then(r => res.json(r));
+});
+
 module.exports = router;

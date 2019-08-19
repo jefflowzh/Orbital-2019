@@ -16,6 +16,7 @@ import FAQ from "./components/FAQ";
 import Profile from "./components/Profile";
 import CreateListing from "./components/CreateListing";
 import SearchResults from "./components/SearchResults";
+import ListingDetails from "./components/ListingDetails";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -60,6 +61,11 @@ class App extends Component {
               exact
               path="/listings/new"
               component={CreateListing}
+            />
+            <PrivateRoute
+              exact
+              path="/listingDetails"
+              component={ListingDetails}
             />
           </div>
         </Router>
