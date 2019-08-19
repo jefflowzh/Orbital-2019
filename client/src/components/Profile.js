@@ -3,32 +3,43 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 class Profile extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     name: "",
-  //     email: "",
-  //     description: "",
-  //     isBefriender: "",
-  //     isMedicalEscort: "",
-  //     isNurse: "",
-  //     languages: "",
-  //     race: "hel",
-  //     religion: "",
-  //     photo: ""
-  //   };
-  // }
-  // componentDidMount() {
-  //   console.log(this.props.userId);
-  //   const id = {
-  //     userId: this.props.userId
-  //   };
-  //   console.log(id);
-  //   axios
-  //     .post("/api/users/currentUser", id)
-  //     .then(res => this.setState({ race: res }));
-  //   console.log(this.state.race);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      description: "",
+      isBefriender: "",
+      isMedicalEscort: "",
+      isNurse: "",
+      languages: "",
+      race: "",
+      religion: "",
+      photo: ""
+    };
+  }
+  componentDidMount() {
+    console.log(this.props.userId);
+    const id = {
+      userId: this.props.userId
+    };
+    console.log(id);
+    axios.post("/api/users/currentUser", id).then(res =>
+      this.setState({
+        name: res.data.name,
+        email: res.data.email,
+        description: res.data.description,
+        isBefriender: res.data.isBefriender,
+        isMedicalEscort: res.data.isMedicalEscort,
+        isNurse: res.data.isNurse,
+        languages: res.data.languages,
+        race: res.data.race,
+        religion: res.data.religion,
+        photo: res.data.photo
+      })
+    );
+  }
+
   render() {
     return (
       <div style={{ height: "75vh" }} className="container">
@@ -36,12 +47,12 @@ class Profile extends Component {
           <div className="col s12">
             <br />
             <h3 className="center-align">
-              <b>Bryan Soh</b>
+              <b>{this.state.name}</b>
             </h3>
             <br />
             <div className="center-align">
               <img
-                src="photo-1564414661900.jpeg"
+                src={this.state.photo}
                 style={{ height: "320px", width: "400px" }}
               />
             </div>
@@ -53,7 +64,7 @@ class Profile extends Component {
                 style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                 className="flow-text grey-text text-darken-1"
               >
-                <small>bryansoh95@gmail.com</small>
+                <small>{this.state.email}</small>
               </p>
             </div>
             <div>
@@ -64,17 +75,17 @@ class Profile extends Component {
                 style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                 className="flow-text grey-text text-darken-1"
               >
-                {true ? (
+                {this.state.isMedicalEscort ? (
                   <p style={{ padding: "0px", margin: "0px", border: "0px" }}>
                     <small>Medical Escort</small>
                   </p>
                 ) : null}
-                {true ? (
+                {this.state.isBefriender ? (
                   <p style={{ padding: "0px", margin: "0px", border: "0px" }}>
                     <small>Befriending</small>
                   </p>
                 ) : null}
-                {false ? (
+                {this.state.isNurse ? (
                   <p style={{ padding: "0px", margin: "0px", border: "0px" }}>
                     <small>Nursing</small>
                   </p>
@@ -88,18 +99,7 @@ class Profile extends Component {
                   style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                   className="flow-text grey-text text-darken-1"
                 >
-                  <small>
-                    Hi I am Bryan. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Mauris egestas sapien purus. Etiam vitae
-                    mauris consectetur, pretium justo vitae, fringilla mauris.
-                    Nam porta tristique eros, eu iaculis augue semper ac. Morbi
-                    rutrum semper urna ut efficitur. Suspendisse tortor augue,
-                    convallis ut condimentum sed, laoreet non lacus. Ut
-                    tincidunt eu arcu eu volutpat. Nam fermentum facilisis
-                    massa, quis aliquam mauris vulputate a. In egestas risus ex.
-                    Quisque consectetur lacus et porta imperdiet. Cras sit amet
-                    ex varius, fringilla velit vitae, dapibus sem.
-                  </small>
+                  <small>{this.state.description}</small>
                 </p>
               </div>
               <div>
@@ -110,7 +110,7 @@ class Profile extends Component {
                   style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                   className="flow-text grey-text text-darken-1"
                 >
-                  <small>English, Mandarin</small>
+                  <small>{this.state.languages}</small>
                 </p>
               </div>
               <div>
@@ -121,7 +121,7 @@ class Profile extends Component {
                   style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                   className="flow-text grey-text text-darken-1"
                 >
-                  <small>Chinese</small>
+                  <small>{this.state.race}</small>
                 </p>
               </div>
               <div>
@@ -132,7 +132,7 @@ class Profile extends Component {
                   style={{ padding: "0px", marginTop: "0px", border: "0px" }}
                   className="flow-text grey-text text-darken-1"
                 >
-                  <small>Catholic</small>
+                  <small>{this.state.religion}</small>
                 </p>
               </div>
             </div>
@@ -143,9 +143,8 @@ class Profile extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   userId: state.auth.user.id
-// });
+const mapStateToProps = state => ({
+  userId: state.auth.user.id
+});
 
-// export default connect(mapStateToProps)(Profile);
-export default Profile;
+export default connect(mapStateToProps)(Profile);
