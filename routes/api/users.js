@@ -153,9 +153,12 @@ router.get("/dashboard", (req, res) => {
 });
 
 router.post("/dashboard/search", (req, res) => {
-  User.find({ $text: { $search: req.body.query } }).then(result =>
-    res.json(result)
-  );
+  User.find({
+    $and: [
+      { isRegisteredCaregiver: true },
+      { $text: { $search: req.body.query } }
+    ]
+  }).then(result => res.json(result));
 });
 
 router.post("/currentUser", (req, res) => {
