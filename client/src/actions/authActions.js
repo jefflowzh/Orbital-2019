@@ -63,6 +63,13 @@ export const setCaregiver = () => dispatch => {
   });
 };
 
+export const resetCaregiver = () => dispatch => {
+  dispatch({
+    type: SET_CAREGIVER,
+    payload: false
+  });
+};
+
 // Log user out
 export const logoutUser = () => dispatch => {
   // Remove token from local storage

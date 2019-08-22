@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../actions/authActions";
+import { logoutUser, resetCaregiver } from "../actions/authActions";
 import ListingContainer from "./layout/ListingContainer";
 import Carousel from "nuka-carousel";
 import SearchBar from "./layout/SearchBar";
@@ -14,6 +14,7 @@ class Dashboard extends Component {
 
   onLogoutClick = e => {
     e.preventDefault();
+    this.props.resetCaregiver();
     this.props.logoutUser();
   };
 
@@ -71,5 +72,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, setCurrentListings }
+  { logoutUser, setCurrentListings, resetCaregiver }
 )(Dashboard);
