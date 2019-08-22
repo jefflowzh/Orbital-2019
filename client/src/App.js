@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import {
+  setCurrentUser,
+  logoutUser,
+  setCaregiver
+} from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 import Navbar from "./components/layout/Navbar";
@@ -17,6 +21,8 @@ import Profile from "./components/Profile";
 import CreateListing from "./components/CreateListing";
 import SearchResults from "./components/SearchResults";
 import ListingDetails from "./components/ListingDetails";
+import axios from "axios";
+// import setCaregiver from "./actions/authActions";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -25,6 +31,7 @@ if (localStorage.jwtToken) {
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
+  console.log(decoded);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 
@@ -36,6 +43,10 @@ if (localStorage.jwtToken) {
     // Redirect to login
     window.location.href = "./login";
   }
+  // const userID = { id: decoded.id };
+  // axios
+  //   .post("/api/users/caregiverCheck", userID)
+  //   .then(res => (res.data ? setCaregiver() : console.log()));
 }
 
 class App extends Component {

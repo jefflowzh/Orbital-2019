@@ -126,7 +126,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/caregiverCheck", (req, res) => {
-  User.findOne({ email: req.body.email }).then(r =>
+  User.findOne({ _id: req.body.id }).then(r =>
     res.json(r.isRegisteredCaregiver)
   );
 });
