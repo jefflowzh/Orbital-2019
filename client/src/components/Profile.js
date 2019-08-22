@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import {
+  logoutUser,
+  resetCaregiver,
+  deactivateAccount
+} from "../actions/authActions";
 
 class Profile extends Component {
   constructor(props) {
@@ -39,6 +44,17 @@ class Profile extends Component {
       })
     );
   }
+
+  onDeactivateClick = e => {
+    e.preventDefault();
+    this.props.resetCaregiver();
+    this.props.logoutUser();
+    this.props.deactivateAccount({ id: this.props.userId });
+  };
+
+  // deactivate = () => {
+  //   this.props.deactivateAccount({ id: this.props.userId });
+  // };
 
   render() {
     return (
@@ -138,6 +154,18 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+        <button
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem"
+          }}
+          onClick={this.onDeactivateClick}
+          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+          Deactivate Account
+        </button>
       </div>
     );
   }
@@ -147,4 +175,7 @@ const mapStateToProps = state => ({
   userId: state.auth.user.id
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  { logoutUser, resetCaregiver, deactivateAccount }
+)(Profile);

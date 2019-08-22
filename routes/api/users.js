@@ -166,4 +166,8 @@ router.post("/currentUser", (req, res) => {
   User.findOne({ _id: req.body.userId }).then(r => res.json(r));
 });
 
+router.post("/deleteAccount", (req, res) => {
+  User.remove({ _id: req.body.id });
+});
+
 module.exports = router;

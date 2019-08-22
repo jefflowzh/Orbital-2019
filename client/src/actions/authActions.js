@@ -1,7 +1,12 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER, SET_CAREGIVER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  SET_CAREGIVER,
+  DELETE_ACCOUNT
+} from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -68,6 +73,10 @@ export const resetCaregiver = () => dispatch => {
     type: SET_CAREGIVER,
     payload: false
   });
+};
+
+export const deactivateAccount = userId => {
+  axios.post("/api/users/deleteAccount", userId);
 };
 
 // Log user out
