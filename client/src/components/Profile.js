@@ -49,7 +49,7 @@ class Profile extends Component {
     e.preventDefault();
     this.props.resetCaregiver();
     this.props.logoutUser();
-    this.props.deactivateAccount({ id: this.props.userId });
+    axios.post("/api/users/deleteAccount", { id: this.props.userId });
   };
 
   // deactivate = () => {
